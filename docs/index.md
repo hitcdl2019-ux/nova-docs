@@ -11,22 +11,29 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /guide/getting-started
+      link: /start/introduction
     - theme: alt
-      text: API 参考
+      text: API 使用
       link: /api/overview
     - theme: alt
       text: 返回主站
       link: https://api.novaapis.com/
 
 features:
-  - icon: ⚡
-    title: 统一接入
-    details: 一套 OpenAI 兼容接口，接入 40+ 主流大模型供应商，无需为每家单独对接。
-  - icon: 🔑
-    title: 即开即用
-    details: 注册即得 API Key，计量计费透明，控制台一处管理额度、密钥与日志。
   - icon: 🚀
-    title: 稳定高可用
-    details: 多上游容灾与速率控制，按需扩展，保障生产环境调用稳定。
+    title: 快速开始
+    details: 注册获取密钥、了解鉴权，几分钟完成第一次调用。
+    link: /start/introduction
+  - icon: ⚡
+    title: API 使用
+    details: OpenAI 兼容接口，对话补全、图像生成、模型列表等一应俱全。
+    link: /api/overview
+  - icon: 🤖
+    title: Agent 工具接入
+    details: 兼容 Function Calling，轻松接入 LangChain 等 Agent 框架。
+    link: /agent/overview
+  - icon: 💬
+    title: FAQ 与支持
+    details: 常见问题、错误码排查与联系方式，遇到问题快速求助。
+    link: /support/faq
 ---

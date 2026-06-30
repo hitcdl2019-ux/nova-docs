@@ -13,28 +13,19 @@ https://api.novaapis.com/v1
 | 端点 | 说明 |
 | --- | --- |
 | `POST /v1/chat/completions` | 对话补全（主流文本模型） |
-| `POST /v1/embeddings` | 文本向量化 |
 | `POST /v1/images/generations` | 图像生成 |
 | `GET  /v1/models` | 查询可用模型列表 |
 
-## 请求示例
+## 鉴权
 
-```bash
-curl https://api.novaapis.com/v1/chat/completions \
-  -H "Authorization: Bearer $NOVA_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "gpt-4o-mini",
-    "messages": [{ "role": "user", "content": "Hello" }]
-  }'
+所有请求需在请求头携带密钥，详见[快速开始](/start/quickstart)：
+
+```http
+Authorization: Bearer YOUR_API_KEY
 ```
 
-## 错误处理
+## 各接口文档
 
-接口遵循标准 HTTP 状态码：
-
-- `401` 鉴权失败（密钥缺失或无效）
-- `429` 触发速率限制
-- `5xx` 上游或网关错误
-
-> 提示：具体可用模型、价格与限额请以 [主站模型中心](https://api.novaapis.com/pricing) 为准。
+- [对话补全](/api/chat)
+- [图像生成](/api/images)
+- [模型列表](/api/models)
