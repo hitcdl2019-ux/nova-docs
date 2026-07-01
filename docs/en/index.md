@@ -30,7 +30,7 @@ features:
     link: /en/api/overview
   - icon: 🤖
     title: Agent & Tools
-    details: Function calling compatible — plug into LangChain and other agent frameworks easily.
+    details: One-step setup for coding agent CLIs — Claude Code, Codex, OpenClaw, Hermes, WorkBuddy / CodeBuddy.
     link: /en/agent/overview
   - icon: 💬
     title: FAQ & Support

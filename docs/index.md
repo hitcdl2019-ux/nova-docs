@@ -30,7 +30,7 @@ features:
     link: /api/overview
   - icon: 🤖
     title: Agent 工具接入
-    details: 兼容 Function Calling，轻松接入 LangChain 等 Agent 框架。
+    details: 一键接入 Claude Code、Codex、OpenClaw、Hermes、WorkBuddy / CodeBuddy 等编程智能体 CLI。
     link: /agent/overview
   - icon: 💬
     title: FAQ 与支持
