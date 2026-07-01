@@ -4,7 +4,9 @@
 
 ## Request example
 
-```bash
+::: code-group
+
+```bash [cURL]
 curl https://api.novaapis.com/v1/images/generations \
   -H "Authorization: Bearer $NOVA_API_KEY" \
   -H "Content-Type: application/json" \
@@ -15,6 +17,39 @@ curl https://api.novaapis.com/v1/images/generations \
     "size": "1024x1024"
   }'
 ```
+
+```python [Python]
+from openai import OpenAI
+
+client = OpenAI(api_key="YOUR_API_KEY", base_url="https://api.novaapis.com/v1")
+
+resp = client.images.generate(
+    model="dall-e-3",
+    prompt="A cat drinking coffee on the moon, cyberpunk style",
+    n=1,
+    size="1024x1024",
+)
+print(resp.data[0].url)
+```
+
+```javascript [Node.js]
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.NOVA_API_KEY,
+  baseURL: 'https://api.novaapis.com/v1',
+})
+
+const resp = await client.images.generate({
+  model: 'dall-e-3',
+  prompt: 'A cat drinking coffee on the moon, cyberpunk style',
+  n: 1,
+  size: '1024x1024',
+})
+console.log(resp.data[0].url)
+```
+
+:::
 
 ## Common parameters
 

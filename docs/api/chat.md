@@ -4,7 +4,9 @@
 
 ## 请求示例
 
-```bash
+::: code-group
+
+```bash [cURL]
 curl https://api.novaapis.com/v1/chat/completions \
   -H "Authorization: Bearer $NOVA_API_KEY" \
   -H "Content-Type: application/json" \
@@ -16,6 +18,41 @@ curl https://api.novaapis.com/v1/chat/completions \
     ]
   }'
 ```
+
+```python [Python]
+from openai import OpenAI
+
+client = OpenAI(api_key="YOUR_API_KEY", base_url="https://api.novaapis.com/v1")
+
+resp = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "你是一个乐于助人的助手。"},
+        {"role": "user", "content": "用一句话介绍 NovaAPI"},
+    ],
+)
+print(resp.choices[0].message.content)
+```
+
+```javascript [Node.js]
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.NOVA_API_KEY,
+  baseURL: 'https://api.novaapis.com/v1',
+})
+
+const resp = await client.chat.completions.create({
+  model: 'gpt-4o-mini',
+  messages: [
+    { role: 'system', content: '你是一个乐于助人的助手。' },
+    { role: 'user', content: '用一句话介绍 NovaAPI' },
+  ],
+})
+console.log(resp.choices[0].message.content)
+```
+
+:::
 
 ## 常用参数
 
@@ -31,7 +68,20 @@ curl https://api.novaapis.com/v1/chat/completions \
 
 设置 `"stream": true`，服务端以 SSE 分块推送内容：
 
-```python
+::: code-group
+
+```bash [cURL]
+curl https://api.novaapis.com/v1/chat/completions \
+  -H "Authorization: Bearer $NOVA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o-mini",
+    "messages": [{ "role": "user", "content": "讲个笑话" }],
+    "stream": true
+  }'
+```
+
+```python [Python]
 from openai import OpenAI
 
 client = OpenAI(api_key="...", base_url="https://api.novaapis.com/v1")
@@ -44,3 +94,23 @@ stream = client.chat.completions.create(
 for chunk in stream:
     print(chunk.choices[0].delta.content or "", end="")
 ```
+
+```javascript [Node.js]
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.NOVA_API_KEY,
+  baseURL: 'https://api.novaapis.com/v1',
+})
+
+const stream = await client.chat.completions.create({
+  model: 'gpt-4o-mini',
+  messages: [{ role: 'user', content: '讲个笑话' }],
+  stream: true,
+})
+for await (const chunk of stream) {
+  process.stdout.write(chunk.choices[0]?.delta?.content || '')
+}
+```
+
+:::

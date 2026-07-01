@@ -4,7 +4,9 @@
 
 ## Request example
 
-```bash
+::: code-group
+
+```bash [cURL]
 curl https://api.novaapis.com/v1/chat/completions \
   -H "Authorization: Bearer $NOVA_API_KEY" \
   -H "Content-Type: application/json" \
@@ -16,6 +18,41 @@ curl https://api.novaapis.com/v1/chat/completions \
     ]
   }'
 ```
+
+```python [Python]
+from openai import OpenAI
+
+client = OpenAI(api_key="YOUR_API_KEY", base_url="https://api.novaapis.com/v1")
+
+resp = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Describe NovaAPI in one sentence"},
+    ],
+)
+print(resp.choices[0].message.content)
+```
+
+```javascript [Node.js]
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.NOVA_API_KEY,
+  baseURL: 'https://api.novaapis.com/v1',
+})
+
+const resp = await client.chat.completions.create({
+  model: 'gpt-4o-mini',
+  messages: [
+    { role: 'system', content: 'You are a helpful assistant.' },
+    { role: 'user', content: 'Describe NovaAPI in one sentence' },
+  ],
+})
+console.log(resp.choices[0].message.content)
+```
+
+:::
 
 ## Common parameters
 
@@ -31,7 +68,20 @@ curl https://api.novaapis.com/v1/chat/completions \
 
 Set `"stream": true` and the server pushes content in chunks via SSE:
 
-```python
+::: code-group
+
+```bash [cURL]
+curl https://api.novaapis.com/v1/chat/completions \
+  -H "Authorization: Bearer $NOVA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-4o-mini",
+    "messages": [{ "role": "user", "content": "Tell me a joke" }],
+    "stream": true
+  }'
+```
+
+```python [Python]
 from openai import OpenAI
 
 client = OpenAI(api_key="...", base_url="https://api.novaapis.com/v1")
@@ -44,3 +94,23 @@ stream = client.chat.completions.create(
 for chunk in stream:
     print(chunk.choices[0].delta.content or "", end="")
 ```
+
+```javascript [Node.js]
+import OpenAI from 'openai'
+
+const client = new OpenAI({
+  apiKey: process.env.NOVA_API_KEY,
+  baseURL: 'https://api.novaapis.com/v1',
+})
+
+const stream = await client.chat.completions.create({
+  model: 'gpt-4o-mini',
+  messages: [{ role: 'user', content: 'Tell me a joke' }],
+  stream: true,
+})
+for await (const chunk of stream) {
+  process.stdout.write(chunk.choices[0]?.delta?.content || '')
+}
+```
+
+:::
