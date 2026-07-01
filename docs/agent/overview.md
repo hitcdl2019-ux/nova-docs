@@ -11,10 +11,6 @@ NovaAPI 同时兼容 **OpenAI** 与 **Anthropic** 两套接口协议，可作为
 - [OpenClaw](/agent/openclaw)：OpenAI 兼容，配置 `base_url`
 - [Hermes](/agent/hermes)：OpenAI 兼容，配置 `base_url`
 
-## 二、函数调用
-
-- [函数调用](/agent/function-calling)：`tools` 声明与调用流程
-
 ## 通用要点
 
 1. **OpenAI 协议**：`base_url` 填 `https://api.novaapis.com/v1`
