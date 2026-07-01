@@ -10,6 +10,7 @@ NovaAPI 同时兼容 **OpenAI** 与 **Anthropic** 两套接口协议，可作为
 - [Codex](/agent/codex)：OpenAI 协议，配置 `~/.codex/config.toml`
 - [OpenClaw](/agent/openclaw)：OpenAI 兼容，配置 `base_url`
 - [Hermes](/agent/hermes)：OpenAI 兼容，配置 `base_url`
+- [WorkBuddy / CodeBuddy](/agent/codebuddy)：OpenAI 兼容，`models.json` 自定义模型
 
 ## 通用要点
 

@@ -10,6 +10,7 @@ Point a command-line agent's endpoint at NovaAPI for unified billing and free mo
 - [Codex](/en/agent/codex): OpenAI protocol, edit `~/.codex/config.toml`
 - [OpenClaw](/en/agent/openclaw): OpenAI-compatible, set `base_url`
 - [Hermes](/en/agent/hermes): OpenAI-compatible, set `base_url`
+- [WorkBuddy / CodeBuddy](/en/agent/codebuddy): OpenAI-compatible, custom model via `models.json`
 
 ## General Notes
 
