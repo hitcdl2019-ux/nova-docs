@@ -11,7 +11,7 @@ curl https://api.novaapis.com/v1/images/generations \
   -H "Authorization: Bearer $NOVA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "dall-e-3",
+    "model": "gpt-image-2",
     "prompt": "A cat drinking coffee on the moon, cyberpunk style",
     "n": 1,
     "size": "1024x1024"
@@ -24,7 +24,7 @@ from openai import OpenAI
 client = OpenAI(api_key="YOUR_API_KEY", base_url="https://api.novaapis.com/v1")
 
 resp = client.images.generate(
-    model="dall-e-3",
+    model="gpt-image-2",
     prompt="A cat drinking coffee on the moon, cyberpunk style",
     n=1,
     size="1024x1024",
@@ -41,7 +41,7 @@ const client = new OpenAI({
 })
 
 const resp = await client.images.generate({
-  model: 'dall-e-3',
+  model: 'gpt-image-2',
   prompt: 'A cat drinking coffee on the moon, cyberpunk style',
   n: 1,
   size: '1024x1024',

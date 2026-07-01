@@ -11,7 +11,7 @@ curl https://api.novaapis.com/v1/chat/completions \
   -H "Authorization: Bearer $NOVA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gpt-4o-mini",
+    "model": "gpt-5.5",
     "messages": [
       { "role": "system", "content": "你是一个乐于助人的助手。" },
       { "role": "user", "content": "用一句话介绍 NovaAPI" }
@@ -25,7 +25,7 @@ from openai import OpenAI
 client = OpenAI(api_key="YOUR_API_KEY", base_url="https://api.novaapis.com/v1")
 
 resp = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gpt-5.5",
     messages=[
         {"role": "system", "content": "你是一个乐于助人的助手。"},
         {"role": "user", "content": "用一句话介绍 NovaAPI"},
@@ -43,7 +43,7 @@ const client = new OpenAI({
 })
 
 const resp = await client.chat.completions.create({
-  model: 'gpt-4o-mini',
+  model: 'gpt-5.5',
   messages: [
     { role: 'system', content: '你是一个乐于助人的助手。' },
     { role: 'user', content: '用一句话介绍 NovaAPI' },
@@ -75,7 +75,7 @@ curl https://api.novaapis.com/v1/chat/completions \
   -H "Authorization: Bearer $NOVA_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gpt-4o-mini",
+    "model": "gpt-5.5",
     "messages": [{ "role": "user", "content": "讲个笑话" }],
     "stream": true
   }'
@@ -87,7 +87,7 @@ from openai import OpenAI
 client = OpenAI(api_key="...", base_url="https://api.novaapis.com/v1")
 
 stream = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gpt-5.5",
     messages=[{"role": "user", "content": "讲个笑话"}],
     stream=True,
 )
@@ -105,7 +105,7 @@ const client = new OpenAI({
 })
 
 const stream = await client.chat.completions.create({
-  model: 'gpt-4o-mini',
+  model: 'gpt-5.5',
   messages: [{ role: 'user', content: '讲个笑话' }],
   stream: true,
 })
