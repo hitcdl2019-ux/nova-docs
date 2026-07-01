@@ -1,40 +1,100 @@
 # Hermes 接入
 
-[Hermes](https://github.com/nousresearch/hermes-agent) 兼容 OpenAI 接口，把它的模型接口地址（`base_url`）指向 NovaAPI、密钥换成 NovaAPI Key 即可。
+[Hermes](https://github.com/nousresearch/hermes-agent)（Nous Research 出品的 Hermes Agent）兼容 OpenAI 接口，把 NovaAPI 作为自定义接口加入、密钥换成 NovaAPI Key 即可。本文从零开始，覆盖 Windows / macOS / Linux。
 
-## 一、安装
+## 环境要求
 
-请以官方仓库 <https://github.com/nousresearch/hermes-agent> 的 README 为准进行安装。
+- 操作系统：Windows 10+（PowerShell）/ macOS / Linux（也支持 WSL2）
+- NovaAPI 控制台生成的 API Key（以 `sk-` 开头）
 
-> 📌 本节安装命令待补充：由于文档撰写环境无法联网抓取该仓库，具体的分系统（Windows / macOS / Linux）安装步骤将按官方 README 补齐。
+> 无需手动装 Node.js/Python——Hermes 安装脚本会自带运行时（uv、Python 3.11、Node.js、ripgrep、ffmpeg），缺什么装什么。
+
+---
+
+## 一、安装 Hermes
+
+官方安装脚本会自动识别系统并拉取所需运行时。
+
+### macOS / Linux / WSL2
+
+```bash
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+```
+
+完成后重新加载 shell，让 `hermes` 进入 PATH：
+
+```bash
+source ~/.bashrc      # 或：source ~/.zshrc
+```
+
+### Windows（PowerShell）
+
+```powershell
+iex (irm https://hermes-agent.nousresearch.com/install.ps1)
+```
+
+装完后重开终端。
+
+验证：
+
+```bash
+hermes --version
+```
+
+---
 
 ## 二、配置指向 NovaAPI
 
-Hermes 走 OpenAI 协议，用环境变量指定接口地址与密钥。
+NovaAPI 是 OpenAI 兼容接口，有两种配置方式。
 
-### macOS / Linux（bash / zsh）
+### 方式 A —— 交互式（推荐）
 
 ```bash
-export OPENAI_BASE_URL="https://api.novaapis.com/v1"
-export OPENAI_API_KEY="sk-你的NovaAPIKey"
+hermes model
 ```
 
-写入 `~/.zshrc` 或 `~/.bashrc` 持久化。
+选择 **"Custom endpoint (self-hosted / VLLM / etc.)"**，然后依次输入：
 
-### Windows PowerShell
+- 接口地址（API base URL）：`https://api.novaapis.com/v1`
+- 密钥（API key）：你的 `sk-...` NovaAPI Key
+- 模型名（Model name）：[模型列表](/api/models)中任一支持工具调用的模型
 
-```powershell
-setx OPENAI_BASE_URL "https://api.novaapis.com/v1"     # 永久，重开终端生效
-setx OPENAI_API_KEY "sk-你的NovaAPIKey"
+所选配置会写入 `~/.hermes/config.yaml`。
 
-$env:OPENAI_BASE_URL="https://api.novaapis.com/v1"     # 仅当前会话
-$env:OPENAI_API_KEY="sk-你的NovaAPIKey"
+### 方式 B —— 手动编辑配置
+
+在 `~/.hermes/config.yaml` 中把 NovaAPI 作为命名的自定义服务商加入，并把密钥放到 `~/.hermes/.env`：
+
+```yaml
+# ~/.hermes/config.yaml
+custom_providers:
+  - name: novaapi
+    base_url: https://api.novaapis.com/v1
+    key_env: NOVA_API_KEY
+
+model:
+  default: gpt-5            # 任一支持工具调用的模型
+  provider:
+    custom: novaapi
 ```
 
-## 要点
+```bash
+# ~/.hermes/.env
+NOVA_API_KEY=sk-你的NovaAPIKey
+```
 
-- 接口地址填 `https://api.novaapis.com/v1`（OpenAI 兼容）
-- 密钥使用 NovaAPI 控制台生成的 Key
-- 模型名以[模型列表](/api/models)为准，选择支持工具调用的模型
+- `base_url`：NovaAPI 的 OpenAI 兼容接口地址
+- `key_env`：`.env` 中存放密钥的环境变量名
+- `model.provider.custom`：上面定义的自定义服务商名
 
-> 若 Hermes 使用独立配置文件，把其中的 `base_url` / `api_base` 字段填为上述地址即可，原理一致。
+> `config.yaml` 是模型、服务商、接口地址的唯一权威来源。
+
+---
+
+## 三、运行
+
+```bash
+hermes
+```
+
+会话中可用 `/model` 切换模型，或重新执行 `hermes model` 重新配置。若服务商无法识别，可运行 `hermes doctor` 排查。
