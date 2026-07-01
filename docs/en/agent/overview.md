@@ -11,10 +11,9 @@ Point a command-line agent's endpoint at NovaAPI for unified billing and free mo
 - [OpenClaw](/en/agent/openclaw): OpenAI-compatible, set `base_url`
 - [Hermes](/en/agent/hermes): OpenAI-compatible, set `base_url`
 
-## 2. Function Calling & Frameworks
+## 2. Function Calling
 
 - [Function Calling](/en/agent/function-calling): declaring `tools` and the call flow
-- [Framework Integration](/en/agent/frameworks): LangChain, LlamaIndex, and more
 
 ## General Notes
 

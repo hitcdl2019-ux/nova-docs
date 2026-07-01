@@ -1,12 +1,34 @@
 # OpenClaw
 
-OpenClaw is OpenAI-compatible. Point its model endpoint (`base_url`) at NovaAPI and swap the key for a NovaAPI Key.
+[OpenClaw](https://github.com/openclaw/openclaw) is OpenAI-compatible. Point its model endpoint (`base_url`) at NovaAPI and swap the key for a NovaAPI Key.
 
-## Set environment variables
+## 1. Install
+
+Follow the official repository at <https://github.com/openclaw/openclaw> for installation.
+
+> 📌 Install commands to be filled in: the environment used to author these docs has no network access to fetch this repo, so the per-OS (Windows / macOS / Linux) install steps will be completed from the official README.
+
+## 2. Point it at NovaAPI
+
+OpenClaw uses the OpenAI protocol — set the endpoint and key via environment variables.
+
+### macOS / Linux (bash / zsh)
 
 ```bash
 export OPENAI_BASE_URL="https://api.novaapis.com/v1"
 export OPENAI_API_KEY="sk-your-NovaAPI-key"
+```
+
+Persist by adding to `~/.zshrc` or `~/.bashrc`.
+
+### Windows PowerShell
+
+```powershell
+setx OPENAI_BASE_URL "https://api.novaapis.com/v1"     # persistent, reopen terminal
+setx OPENAI_API_KEY "sk-your-NovaAPI-key"
+
+$env:OPENAI_BASE_URL="https://api.novaapis.com/v1"     # current session only
+$env:OPENAI_API_KEY="sk-your-NovaAPI-key"
 ```
 
 ## Notes
