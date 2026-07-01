@@ -50,6 +50,10 @@ export default defineConfig({
               text: 'Agent 工具接入',
               items: [
                 { text: '概览', link: '/agent/overview' },
+                { text: 'Claude Code', link: '/agent/claude-code' },
+                { text: 'Codex', link: '/agent/codex' },
+                { text: 'OpenClaw', link: '/agent/openclaw' },
+                { text: 'Hermes', link: '/agent/hermes' },
                 { text: '函数调用', link: '/agent/function-calling' },
                 { text: '框架接入', link: '/agent/frameworks' },
               ],
@@ -116,6 +120,10 @@ export default defineConfig({
               text: 'Agent & Tools',
               items: [
                 { text: 'Overview', link: '/en/agent/overview' },
+                { text: 'Claude Code', link: '/en/agent/claude-code' },
+                { text: 'Codex', link: '/en/agent/codex' },
+                { text: 'OpenClaw', link: '/en/agent/openclaw' },
+                { text: 'Hermes', link: '/en/agent/hermes' },
                 { text: 'Function Calling', link: '/en/agent/function-calling' },
                 { text: 'Framework Integration', link: '/en/agent/frameworks' },
               ],

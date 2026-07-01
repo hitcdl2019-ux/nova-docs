@@ -1,20 +1,24 @@
 # Agent 工具接入概览
 
-NovaAPI 兼容 OpenAI 的工具调用（Function Calling / Tools）协议，可作为各类 Agent 框架的模型后端，让模型自动调用你定义的工具。
+NovaAPI 同时兼容 **OpenAI** 与 **Anthropic** 两套接口协议，可作为各类编程智能体（Coding Agent）和 Agent 框架的模型后端。无论是命令行编程助手，还是自建的工具编排应用，只需把接口地址指向 NovaAPI，就能用同一份额度调用各家模型。
 
-## 适用场景
+## 一、编程智能体 CLI
 
-- 让模型调用外部工具：查天气、查数据库、下单、检索知识库等
-- 接入 LangChain、LlamaIndex、AutoGen 等 Agent 框架
-- 构建多步推理、工具编排的智能体应用
+把命令行智能体的接口地址指向 NovaAPI，即可统一计费、自由切换模型：
 
-## 接入要点
+- [Claude Code](/agent/claude-code)：Anthropic 协议，配置 `ANTHROPIC_BASE_URL`
+- [Codex](/agent/codex)：OpenAI 协议，配置 `~/.codex/config.toml`
+- [OpenClaw](/agent/openclaw)：OpenAI 兼容，配置 `base_url`
+- [Hermes](/agent/hermes)：OpenAI 兼容，配置 `base_url`
 
-1. 用 OpenAI 兼容方式连接：`base_url` 指向 `https://api.novaapis.com/v1`
-2. 选择支持工具调用的模型（见[模型列表](/api/models)）
-3. 在请求中声明 `tools`，处理模型返回的 `tool_calls`
+## 二、函数调用与框架
 
-## 文档导航
+- [函数调用](/agent/function-calling)：`tools` 声明与调用流程
+- [框架接入](/agent/frameworks)：LangChain、LlamaIndex 等框架配置
 
-- [函数调用](/agent/function-calling)：tools 声明与调用流程
-- [框架接入](/agent/frameworks)：常见 Agent 框架配置
+## 通用要点
+
+1. **OpenAI 协议**：`base_url` 填 `https://api.novaapis.com/v1`
+2. **Anthropic 协议**：`ANTHROPIC_BASE_URL` 填 `https://api.novaapis.com`（不带 `/v1`）
+3. **密钥**：统一使用 NovaAPI 控制台生成的 Key（`sk-` 开头）
+4. **模型**：选择支持工具调用的模型，具体名称以[模型列表](/api/models)为准
