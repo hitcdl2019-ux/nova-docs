@@ -92,7 +92,8 @@ stream = client.chat.completions.create(
     stream=True,
 )
 for chunk in stream:
-    print(chunk.choices[0].delta.content or "", end="")
+    if chunk.choices: 
+        print(chunk.choices[0].delta.content or "", end="")
 ```
 
 ```javascript [Node.js]
