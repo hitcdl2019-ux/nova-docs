@@ -4,7 +4,7 @@
 
 ## Requirements
 
-- **Node.js 18 or newer** (Claude Code ships via npm)
+- **Node.js 22 or newer** (Claude Code ships via npm)
 - OS: Windows 10+ / macOS / Linux
 - An API Key from the NovaAPI console (starts with `sk-`)
 
@@ -18,7 +18,7 @@ Check whether it's already installed:
 node -v
 ```
 
-If it prints `v18` or higher, skip to [step 2](#_2-install-claude-code). Otherwise install it for your OS.
+If it prints `v22` or higher, skip to [step 2](#_2-install-claude-code). Otherwise install it for your OS.
 
 ### Windows
 
@@ -115,8 +115,8 @@ Claude Code uses the Anthropic protocol — two environment variables point it a
 ### macOS / Linux (bash / zsh)
 
 ```bash
-export ANTHROPIC_BASE_URL="https://api.novaapis.com"
-export ANTHROPIC_AUTH_TOKEN="sk-your-NovaAPI-key"
+export ANTHROPIC_BASE_URL="https://direct.novaapis.com"
+export ANTHROPIC_AUTH_TOKEN="YOUR_NOVAAPI_KEY"
 ```
 
 To persist, add both lines to `~/.zshrc` (zsh) or `~/.bashrc` (bash), then `source` it.
@@ -125,12 +125,12 @@ To persist, add both lines to `~/.zshrc` (zsh) or `~/.bashrc` (bash), then `sour
 
 ```powershell
 # Persist (takes effect after reopening the terminal)
-setx ANTHROPIC_BASE_URL "https://api.novaapis.com"
-setx ANTHROPIC_AUTH_TOKEN "sk-your-NovaAPI-key"
+setx ANTHROPIC_BASE_URL "https://direct.novaapis.com"
+setx ANTHROPIC_AUTH_TOKEN "YOUR_NOVAAPI_KEY"
 
 # Current session only
-$env:ANTHROPIC_BASE_URL="https://api.novaapis.com"
-$env:ANTHROPIC_AUTH_TOKEN="sk-your-NovaAPI-key"
+$env:ANTHROPIC_BASE_URL="https://direct.novaapis.com"
+$env:ANTHROPIC_AUTH_TOKEN="YOUR_NOVAAPI_KEY"
 ```
 
 > ⚠️ Set `ANTHROPIC_BASE_URL` to the **domain only** — do not append `/v1`. Claude Code adds `/v1/messages` automatically.
@@ -138,8 +138,8 @@ $env:ANTHROPIC_AUTH_TOKEN="sk-your-NovaAPI-key"
 ### Pick models (optional)
 
 ```bash
-export ANTHROPIC_MODEL="claude-sonnet-4-5"
-export ANTHROPIC_SMALL_FAST_MODEL="claude-haiku-4-5"
+export ANTHROPIC_MODEL="glm-5.3"
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1"
 ```
 
 Use the model names actually offered by NovaAPI; see the [model list](/en/api/models).
@@ -168,9 +168,11 @@ To avoid setting variables each time, write a config file:
 ```json
 {
   "env": {
-    "ANTHROPIC_BASE_URL": "https://api.novaapis.com",
-    "ANTHROPIC_AUTH_TOKEN": "sk-your-NovaAPI-key",
-    "ANTHROPIC_MODEL": "claude-sonnet-4-5"
+    "ANTHROPIC_BASE_URL": "https://direct.novaapis.com",
+    "ANTHROPIC_MODEL": "glm-5.3",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   }
 }
 ```
+
+> To avoid storing a key in a plaintext file, set `ANTHROPIC_AUTH_TOKEN` only through a system environment variable. Claude Code uses the Anthropic Messages protocol, and NovaAPI performs model protocol conversion on the server.

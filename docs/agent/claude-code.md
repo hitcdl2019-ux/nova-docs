@@ -4,7 +4,7 @@
 
 ## 环境要求
 
-- **Node.js 18 或更高版本**（Claude Code 通过 npm 分发）
+- **Node.js 22 或更高版本**（Claude Code 通过 npm 分发）
 - 操作系统：Windows 10+ / macOS / Linux
 - 一个 NovaAPI 控制台生成的 API Key（`sk-` 开头）
 
@@ -18,7 +18,7 @@
 node -v
 ```
 
-若输出 `v18` 及以上，跳到[第二步](#二、安装-claude-code)。否则按你的系统安装。
+若输出 `v22` 及以上，跳到[第二步](#二、安装-claude-code)。否则按你的系统安装。
 
 ### Windows
 
@@ -115,8 +115,8 @@ Claude Code 走 Anthropic 协议，用两个环境变量把它指向 NovaAPI。
 ### macOS / Linux（bash / zsh）
 
 ```bash
-export ANTHROPIC_BASE_URL="https://api.novaapis.com"
-export ANTHROPIC_AUTH_TOKEN="sk-你的NovaAPIKey"
+export ANTHROPIC_BASE_URL="https://direct.novaapis.com"
+export ANTHROPIC_AUTH_TOKEN="YOUR_NOVAAPI_KEY"
 ```
 
 要长期生效，把上面两行写入 `~/.zshrc`（zsh）或 `~/.bashrc`（bash），再 `source` 一次。
@@ -125,12 +125,12 @@ export ANTHROPIC_AUTH_TOKEN="sk-你的NovaAPIKey"
 
 ```powershell
 # 永久写入（重开终端生效）
-setx ANTHROPIC_BASE_URL "https://api.novaapis.com"
-setx ANTHROPIC_AUTH_TOKEN "sk-你的NovaAPIKey"
+setx ANTHROPIC_BASE_URL "https://direct.novaapis.com"
+setx ANTHROPIC_AUTH_TOKEN "YOUR_NOVAAPI_KEY"
 
 # 仅当前会话临时生效
-$env:ANTHROPIC_BASE_URL="https://api.novaapis.com"
-$env:ANTHROPIC_AUTH_TOKEN="sk-你的NovaAPIKey"
+$env:ANTHROPIC_BASE_URL="https://direct.novaapis.com"
+$env:ANTHROPIC_AUTH_TOKEN="YOUR_NOVAAPI_KEY"
 ```
 
 > ⚠️ `ANTHROPIC_BASE_URL` **只填到域名**，不要带 `/v1`——Claude Code 会自动追加 `/v1/messages`。
@@ -138,8 +138,8 @@ $env:ANTHROPIC_AUTH_TOKEN="sk-你的NovaAPIKey"
 ### 指定模型（可选）
 
 ```bash
-export ANTHROPIC_MODEL="claude-sonnet-4-5"
-export ANTHROPIC_SMALL_FAST_MODEL="claude-haiku-4-5"
+export ANTHROPIC_MODEL="glm-5.3"
+export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1"
 ```
 
 模型名以[模型列表](/api/models)中 NovaAPI 实际提供的为准。
@@ -168,9 +168,11 @@ claude
 ```json
 {
   "env": {
-    "ANTHROPIC_BASE_URL": "https://api.novaapis.com",
-    "ANTHROPIC_AUTH_TOKEN": "sk-你的NovaAPIKey",
-    "ANTHROPIC_MODEL": "claude-sonnet-4-5"
+    "ANTHROPIC_BASE_URL": "https://direct.novaapis.com",
+    "ANTHROPIC_MODEL": "glm-5.3",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   }
 }
 ```
+
+> 为避免在明文文件中保存密钥，`ANTHROPIC_AUTH_TOKEN` 建议只通过系统环境变量设置。Claude Code 使用 Anthropic Messages 协议，NovaAPI 会在服务端完成模型协议转换。

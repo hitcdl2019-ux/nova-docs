@@ -85,19 +85,22 @@ codex --version
 若文件/目录不存在，手动创建。写入：
 
 ```toml
-model = "gpt-5"
+model = "deepseek-v4-pro"
 model_provider = "novaapi"
+model_reasoning_effort = "high"
+preferred_auth_method = "apikey"
+forced_login_method = "api"
 
 [model_providers.novaapi]
 name = "NovaAPI"
-base_url = "https://api.novaapis.com/v1"
+base_url = "https://direct.novaapis.com/v1"
 env_key = "NOVA_API_KEY"
-wire_api = "chat"
+wire_api = "responses"
 ```
 
 - `base_url`：NovaAPI 的 OpenAI 兼容地址
 - `env_key`：从哪个环境变量读取密钥
-- `wire_api = "chat"`：走 `/chat/completions` 接口（接第三方兼容端点时必填）
+- `wire_api = "responses"`：Codex 使用 Responses API，此项必须设为 `responses`
 - `model`：改为[模型列表](/api/models)中任意支持工具调用的模型
 
 ---
@@ -107,7 +110,7 @@ wire_api = "chat"
 ### macOS / Linux
 
 ```bash
-export NOVA_API_KEY="sk-你的NovaAPIKey"
+export NOVA_API_KEY="YOUR_NOVAAPI_KEY"
 ```
 
 写入 `~/.zshrc` 或 `~/.bashrc` 持久化。
@@ -115,8 +118,8 @@ export NOVA_API_KEY="sk-你的NovaAPIKey"
 ### Windows PowerShell
 
 ```powershell
-setx NOVA_API_KEY "sk-你的NovaAPIKey"      # 永久，重开终端生效
-$env:NOVA_API_KEY="sk-你的NovaAPIKey"      # 仅当前会话
+setx NOVA_API_KEY "YOUR_NOVAAPI_KEY"      # 永久，重开终端生效
+$env:NOVA_API_KEY="YOUR_NOVAAPI_KEY"      # 仅当前会话
 ```
 
 > 变量名要与 `config.toml` 里的 `env_key` 一致。
@@ -130,3 +133,20 @@ $env:NOVA_API_KEY="sk-你的NovaAPIKey"      # 仅当前会话
 ```bash
 codex
 ```
+
+## 六、第三方模型兼容性
+
+- DeepSeek V4 系列可使用 NovaAPI 的原生 Responses 适配。
+- GLM、MiniMax 等仅支持 Chat Completions 的模型，需要管理员在 NovaAPI 后台为对应渠道开启 Responses 到 Chat Completions 兼容策略。
+- 百度千帆中的 GLM-5.3 建议按具体渠道 ID 启用兼容策略，避免影响同类型的其他渠道。
+- 模型出现在列表中不代表一定可调用；还需要有健康渠道、模型权限和充足余额。
+- 兼容层支持文本、流式输出和 function tools，但不支持 `custom tools`、托管工具和 `previous_response_id`。
+
+## 七、排查配置
+
+```bash
+codex --version
+codex --strict-config doctor
+```
+
+如果出现 `unsupported relay mode`，请检查 `wire_api` 是否为 `responses`，以及目标渠道是否已开启 Responses 兼容策略。

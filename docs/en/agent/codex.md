@@ -85,19 +85,22 @@ Config file location:
 Create the file/directory if it doesn't exist, then write:
 
 ```toml
-model = "gpt-5"
+model = "deepseek-v4-pro"
 model_provider = "novaapi"
+model_reasoning_effort = "high"
+preferred_auth_method = "apikey"
+forced_login_method = "api"
 
 [model_providers.novaapi]
 name = "NovaAPI"
-base_url = "https://api.novaapis.com/v1"
+base_url = "https://direct.novaapis.com/v1"
 env_key = "NOVA_API_KEY"
-wire_api = "chat"
+wire_api = "responses"
 ```
 
 - `base_url`: NovaAPI's OpenAI-compatible endpoint
 - `env_key`: which environment variable holds the key
-- `wire_api = "chat"`: use the `/chat/completions` API (required for third-party compatible endpoints)
+- `wire_api = "responses"`: Codex uses the Responses API, so this must be set to `responses`
 - `model`: any tool-calling model from the [model list](/en/api/models)
 
 ---
@@ -107,7 +110,7 @@ wire_api = "chat"
 ### macOS / Linux
 
 ```bash
-export NOVA_API_KEY="sk-your-NovaAPI-key"
+export NOVA_API_KEY="YOUR_NOVAAPI_KEY"
 ```
 
 Persist by adding to `~/.zshrc` or `~/.bashrc`.
@@ -115,8 +118,8 @@ Persist by adding to `~/.zshrc` or `~/.bashrc`.
 ### Windows PowerShell
 
 ```powershell
-setx NOVA_API_KEY "sk-your-NovaAPI-key"      # persistent, reopen terminal
-$env:NOVA_API_KEY="sk-your-NovaAPI-key"      # current session only
+setx NOVA_API_KEY "YOUR_NOVAAPI_KEY"      # persistent, reopen terminal
+$env:NOVA_API_KEY="YOUR_NOVAAPI_KEY"      # current session only
 ```
 
 > The variable name must match `env_key` in `config.toml`.
@@ -130,3 +133,20 @@ From your project directory:
 ```bash
 codex
 ```
+
+## 6. Third-party model compatibility
+
+- DeepSeek V4 models can use NovaAPI's native Responses adaptation.
+- Chat Completions-only models such as GLM and MiniMax require an administrator to enable the Responses-to-Chat compatibility policy for the corresponding NovaAPI channel.
+- For GLM-5.3 provided through Baidu Qianfan, enable the policy for the specific channel ID to avoid affecting other channels of the same type.
+- A model appearing in the model list does not prove it is callable. It also needs a healthy channel, model permission, and sufficient balance.
+- The compatibility layer supports text, streaming, and function tools, but not `custom tools`, hosted tools, or `previous_response_id`.
+
+## 7. Diagnose the configuration
+
+```bash
+codex --version
+codex --strict-config doctor
+```
+
+If you see `unsupported relay mode`, verify that `wire_api` is `responses` and that the target channel has the Responses compatibility policy enabled.
