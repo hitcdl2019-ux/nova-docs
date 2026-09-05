@@ -88,4 +88,3 @@ source ~/.bashrc
 4. 检查近期用量和账单
 
 5. 联系支持：contact@novaapis\.com
-
