@@ -31,6 +31,11 @@ export default defineConfig({
               items: [
                 { text: '平台简介', link: '/start/introduction' },
                 { text: '快速开始', link: '/start/quickstart' },
+                { text: '01 - 快速入门', link: '/start/01-快速入门' },
+                { text: '02 - 注册与登录', link: '/start/02-注册与登录' },
+                { text: '03 - 充值余额与发票', link: '/start/03-充值余额与发票' },
+                { text: '04 - API Key 管理', link: '/start/04-API-Key-管理' },
+                { text: '05 - 模型与定价', link: '/start/05-模型与定价' },
               ],
             },
           ],
@@ -100,6 +105,11 @@ export default defineConfig({
               items: [
                 { text: 'Introduction', link: '/en/start/introduction' },
                 { text: 'Quickstart', link: '/en/start/quickstart' },
+                { text: '01 - Quick Start', link: '/en/start/01-快速入门' },
+                { text: '02 - Registration and Sign-in', link: '/en/start/02-注册与登录' },
+                { text: '03 - Balance, Top-ups, and Invoices', link: '/en/start/03-充值余额与发票' },
+                { text: '04 - API Key Management', link: '/en/start/04-API-Key-管理' },
+                { text: '05 - Models and Pricing', link: '/en/start/05-模型与定价' },
               ],
             },
           ],
